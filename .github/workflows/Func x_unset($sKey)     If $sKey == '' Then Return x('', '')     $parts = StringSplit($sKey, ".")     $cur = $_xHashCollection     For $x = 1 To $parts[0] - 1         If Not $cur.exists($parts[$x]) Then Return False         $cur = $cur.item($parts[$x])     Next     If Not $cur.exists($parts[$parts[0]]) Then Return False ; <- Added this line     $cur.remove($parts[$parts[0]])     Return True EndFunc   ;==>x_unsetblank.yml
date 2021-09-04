@@ -1,0 +1,12 @@
+Func x_unset($sKey)
+    If $sKey == '' Then Return x('', '')
+    $parts = StringSplit($sKey, ".")
+    $cur = $_xHashCollection
+    For $x = 1 To $parts[0] - 1
+        If Not $cur.exists($parts[$x]) Then Return False
+        $cur = $cur.item($parts[$x])
+    Next
+    If Not $cur.exists($parts[$parts[0]]) Then Return False ; <- Added this line
+    $cur.remove($parts[$parts[0]])
+    Return True
+EndFunc   ;==>x_unset
